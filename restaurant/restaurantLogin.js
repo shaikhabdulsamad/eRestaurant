@@ -24,7 +24,7 @@ let signin = () => {
         //   .then((res) => {
             loader.style.display = "none"
             text.style.display = "block"
-            greenAlert.innerHTML = "Registered successfully"
+            greenAlert.innerHTML = "Logined successfully"
             greenAlert.style.display = "block"
   
             email1.value = ""

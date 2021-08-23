@@ -32,7 +32,7 @@ let signup = () => {
         .then((res) => {
           loader.style.display = "none"
           text.style.display = "block"
-          greenAlert.innerHTML = "Logined successfully"
+          greenAlert.innerHTML = "Registered successfully"
           greenAlert.style.display = "block"
             
             
