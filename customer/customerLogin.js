@@ -31,7 +31,7 @@ let signin = () => {
             password1.value = ""
   
             setTimeout(() => {
-              window.location = "customerProfile.html"
+              window.location = "../index.html"
               
             }, 1000)
           })
