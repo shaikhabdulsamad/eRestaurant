@@ -1,7 +1,9 @@
 
 firebase.database().ref(`restaurant`).on('child_added', (data) => {
     // console.log(data.val().categories)
-
+    let spiner = document.getElementById('spiner')
+        spiner.style.display= "none"
+        
     let a = data.val().categories
 
     for (var key in a) {
@@ -28,6 +30,7 @@ firebase.database().ref(`restaurant`).on('child_added', (data) => {
     }
 
 })
+
 
 
 

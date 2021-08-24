@@ -24,3 +24,9 @@ cartItem.innerHTML += `
 }
 
 
+let delAllCart = ()=>{
+
+  cartItem.innerHTML = ""
+  
+ window.localStorage.removeItem('Items') 
+}

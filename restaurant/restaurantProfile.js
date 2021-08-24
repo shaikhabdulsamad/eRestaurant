@@ -39,19 +39,25 @@ let logout = () => {
 }
 
 
-firebase.database().ref(`restaurant`).on('child_added', (data) => {
-    // console.log(data.val().categories)
 
-    let a = data.val().categories
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
 
-    for (var key in a) {
-        for (var key1 in a[key]) {
+        var uid = user.uid;
 
-            // console.log(a[key][key1].image)
+        firebase.database().ref(`restaurant/${uid}`).on('child_added', (data) => {
+            console.log(data.val())
 
-            let row = document.getElementById('row');
+            let a = data.val()
 
-            row.innerHTML += `
+            for (var key in a) {
+                for (var key1 in a[key]) {
+
+                    // console.log(a[key][key1].image)
+
+                    let row = document.getElementById('row');
+
+                    row.innerHTML += `
   <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
             <div class="card">
                     <img src="../images/${a[key][key1].image}" style="height:200px" class="card-img-top" alt="...">
@@ -65,11 +71,14 @@ firebase.database().ref(`restaurant`).on('child_added', (data) => {
                         </div>
                         </div>`
 
-        }
+                }
+            }
+
+        })
+    } else {
+        // window.location = "../index.html"
     }
-
-})
-
+});
 
 
 
@@ -89,7 +98,7 @@ let myDishes = () => {
 let addDishes = () => {
     let dishes = document.getElementById('dishes');
     dishes.innerHTML = `
-    <div class="container mt-5">
+    <div class="container mt-120">
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card card-signin my-5">
@@ -171,7 +180,7 @@ let submit = () => {
     let image = document.getElementById('image')
     // console.log(image.files[0])
     let imageSrc = image.files[0]
-// console.log(imageSrc.name)
+    // console.log(imageSrc.name)
     if (Itemname.value !== "" || price.value !== "") {
 
 
@@ -188,8 +197,12 @@ let submit = () => {
                 var uid = user.uid;
 
                 firebase.database().ref(`restaurant/${uid}/categories`).child(category.value).child(Itemname.value).update(newItem)
-
+                    .then(() => {
+                        Itemname.value = ""
+                        price.value = ""
+                    })
             }
+
         })
 
         // name.value = ""
